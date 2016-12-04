@@ -37,7 +37,8 @@ import com.avaje.ebeaninternal.server.ddl.DdlGenerator;
  *
  */
 public class PythonPlugin implements Plugin {
-private boolean isEnabled = false;
+
+	private boolean isEnabled = false;
     private boolean initialized = false;
     private PluginLoader loader = null;
     private Server server = null;
@@ -321,7 +322,6 @@ private boolean isEnabled = false;
 
     public void onDisable() { }
 
-    @Override
     public InputStream getResource(String filename) {
         if(filename == null) {
             throw new IllegalArgumentException("Filename cannot be null");
@@ -335,7 +335,6 @@ private boolean isEnabled = false;
         }
     }
 
-    @Override
     public void saveResource(String resourcePath, boolean replace) {
         if (resourcePath == null || resourcePath.equals("")) {
             throw new IllegalArgumentException("ResourcePath cannot be null or empty");
@@ -379,7 +378,7 @@ private boolean isEnabled = false;
 
         InputStream defConfigStream = getResource("config.yml");
         if (defConfigStream != null) {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            YamlConfiguration defConfig =  YamlConfiguration.loadConfiguration(defConfigStream);
 
             newConfig.setDefaults(defConfig);
         }
@@ -401,13 +400,11 @@ private boolean isEnabled = false;
         this.dataFile = file;
     }
 
-    @Override
     public String getName() {
         // TODO Auto-generated method stub
         return "PythonPlugin";
     }
 
-    @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd,
             String alias, String[] args) {
         return null;

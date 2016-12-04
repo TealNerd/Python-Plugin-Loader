@@ -33,7 +33,6 @@ import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.TimedRegisteredListener;
 import org.bukkit.plugin.UnknownDependencyException;
-import org.bukkit.plugin.java.JavaPluginLoader;
 import org.python.core.Py;
 import org.python.core.PyList;
 import org.python.core.PyObject;
@@ -120,7 +119,6 @@ public class PythonPluginLoader implements PluginLoader {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Plugin loadPlugin(File file, boolean ignoreSoftDependencies, PluginDataFile data) throws InvalidPluginException/*, InvalidDescriptionException, UnknownDependencyException*/ {
         System.out.println("[PythonLoader] Loading Plugin " + file.getName());
         PythonPlugin result = null;
@@ -402,7 +400,6 @@ public class PythonPluginLoader implements PluginLoader {
         }
     }
 
-    @Override
     public Map<Class<? extends Event>, Set<RegisteredListener>> createRegisteredListeners(
             Listener listener, Plugin plugin) {
         boolean useTimings = server.getPluginManager().useTimings();
@@ -420,7 +417,6 @@ public class PythonPluginLoader implements PluginLoader {
             for(final PythonEventHandler handler : entry.getValue()) {
                 EventExecutor executor = new EventExecutor() {
 
-                    @Override
                     public void execute(Listener listener, Event event) throws EventException {
                         if(!listener.getClass().equals(PythonListener.class)) {
                             throw new IllegalArgumentException("No PythonListener passed to EventExecutor! If this happens someone really fucked up something");
@@ -440,7 +436,6 @@ public class PythonPluginLoader implements PluginLoader {
         return ret;
     }
 
-    @Override
     public PluginDescriptionFile getPluginDescription(File file)
             throws InvalidDescriptionException {
         Validate.notNull(file, "File cannot be null");

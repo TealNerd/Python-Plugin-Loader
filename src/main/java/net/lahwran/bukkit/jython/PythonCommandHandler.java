@@ -8,8 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.python.antlr.ast.alias;
-import org.python.core.*;
+import org.python.core.Py;
+import org.python.core.PyException;
+import org.python.core.PyObject;
+import org.python.core.PyString;
 
 
 /**
@@ -84,7 +86,6 @@ public class PythonCommandHandler implements CommandExecutor, TabCompleter {
         else throw new IllegalArgumentException("Tab Completer function must return a list of strings a string or null");
     }
 
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         boolean result;
         if (argcount == -1) {
@@ -109,7 +110,6 @@ public class PythonCommandHandler implements CommandExecutor, TabCompleter {
         return result;
     }
 
-    @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (tabComplete == null) {
             return null;

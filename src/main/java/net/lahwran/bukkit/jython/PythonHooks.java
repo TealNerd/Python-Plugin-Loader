@@ -4,7 +4,6 @@
 package net.lahwran.bukkit.jython;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,20 +12,14 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.python.core.Py;
-import org.python.core.PyBoolean;
-import org.python.core.PyBuiltinClassMethodNarrow;
-import org.python.core.PyBuiltinMethod;
-import org.python.core.PyClassMethod;
 import org.python.core.PyException;
 import org.python.core.PyFunction;
 import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.core.PyString;
-import org.python.core.PyTuple;
 import org.python.core.PyType;
 
 import com.master.bukkit.python.ReflectionHelper;
@@ -80,7 +73,7 @@ public class PythonHooks {
     }
 
     @SuppressWarnings("unchecked")
-    private void addCommandInfo(String name, String usage, String desc, List aliases) {
+	private void addCommandInfo(String name, String usage, String desc, List<?> aliases) {
         Object object = plugindesc.getCommands();
         if (object == null) {
             object = new HashMap<String, HashMap<String, Object>>();
@@ -146,7 +139,8 @@ public class PythonHooks {
      * @param type Event type string
      * @param priority Event priority string
      */
-    public void registerEvent(PyObject handler, PyString type, PyString priority) {
+    @SuppressWarnings("unchecked")
+	public void registerEvent(PyObject handler, PyString type, PyString priority) {
         try {
             String clazz = type.asString();
             Class<?> event = null;
@@ -334,7 +328,8 @@ public class PythonHooks {
         }
     }
     
-    public PyObject custom_event(PyType event) {        
+    @SuppressWarnings("unchecked")
+	public PyObject custom_event(PyType event) {        
         Class<?> proxy = event.getProxyType();
         
         if(Event.class.isAssignableFrom(proxy)) {
