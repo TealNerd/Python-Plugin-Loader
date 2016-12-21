@@ -41,7 +41,7 @@ public class PythonLoader extends JavaPlugin {
         if(!new File("lib/jython.jar").exists()) {
             getServer().getLogger().log(Level.SEVERE, "Could not find lib/jython.jar! I will try to automatically download it for you.");
             try {
-                URL website = new URL("http://dev.bukkit.org/media/files/647/602/jython.jar");
+                URL website = new URL("http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/2.7.0/jython-standalone-2.7.0.jar");
                 URLConnection connection = website.openConnection();
                 connection.connect();
 
